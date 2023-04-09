@@ -3,7 +3,7 @@ import { useAccount, useProvider, useSigner } from 'wagmi'
 import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
 
-export default function ExchangeToken() {
+export default function ExchangeJo() {
     const { address, isConnected } = useAccount();
     const provider = useProvider();
     const { data: signer } = useSigner();
@@ -13,7 +13,7 @@ export default function ExchangeToken() {
             
             {(isConnected ? (
                 <Box boxSize='100%' margin="100">
-                <Text align="center">Echange de jetons sportif.</Text>
+                <Text align="center">Echange de JO sportif.</Text>
                 </Box>
             
             ) : (

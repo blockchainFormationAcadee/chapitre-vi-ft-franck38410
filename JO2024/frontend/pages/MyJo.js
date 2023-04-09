@@ -1,19 +1,14 @@
-import { Heading, Flex, Text, Button, useToast, Image, Box, SimpleGrid } from '@chakra-ui/react';
-
-import { useAccount, useProvider, useSigner } from 'wagmi'
+import { Heading, Text, Box, SimpleGrid } from '@chakra-ui/react';
+import { useAccount, useProvider } from 'wagmi'
 import { useState, useEffect } from 'react';
-
 import { ethers } from 'ethers';
 import JO2024 from "../components/JO2024"
-
 import Contract from '../../backend/artifacts/contracts/JO2024.sol/JO2024.json';
-import { formAcadeeAddress, contractAddress } from 'config/constants';
+import { contractAddress } from 'config/constants';
 
 const MyJo2024 = () => {
     const { address, isConnected } = useAccount()
     const provider = useProvider()
-    const { data: signer } = useSigner()
-    const toast = useToast()
     const [amountBurn, setAmountBurn] = useState(null)
     const [supplyAthletisme, setSupplyAthletisme] = useState(null)
     const [supplyAviron, setSupplyAviron] = useState(null)

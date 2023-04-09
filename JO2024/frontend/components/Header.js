@@ -11,10 +11,10 @@ export default function Header() {
             {(isConnected ? (
                 <Flex>
                     < ActiveLink children="Accueil" href="/" />
-                    < ActiveLink children="Quêtes" href="/quetes" />
-                    < ActiveLink children="Mes JO" href="/MyJo2024" />
-                    < ActiveLink children="Exchange" href="/ExchangeToken" />
-                    < ActiveLink children="Transforme" href="/ExchangeToken" />
+                    < ActiveLink children="Quêtes" href="/Quetes" />
+                    < ActiveLink children="JO" href="/MyJo" />
+                    < ActiveLink children="Exchange" href="/ExchangeJo" />
+                    < ActiveLink children="Unique" href="/MyUnique" />
                 </Flex>
             ) : (
                 < ActiveLink children="Home" href="/" />
