@@ -1,23 +1,24 @@
 # Projet Web3
+Ce projet a pour objectif de créer une plateforme de collection et d’échange de NFTs liée aux Jeux Olympiques d'été de 2024 à Paris.
 
-Dans ce repository vous trouverez tout d'abord une première partie pour la création d'une collection NFT ERC-1155.\
-Par la suite vous allez découvrir le projet à travers un smart contrat d'échange de jeton.
+Dans ce repository vous trouverez sous JO2024 le code du backend et du frontend :
+- backend : on retrouve le Smart Contrat développés en Solidity, testés et déployés sur la blockchain de test Hardhat et Mumbai à l’aide de l’environnement Hardhat.
+- frontend : Le Frontend (dapp) utilise la librairie React JS et le framework Next JS.
 
-## Partie 1
+## backend
+Création d'une collection NFT ERC-1155 (fongigle et non fongible) dédiée au JO 2024 :
 
-Création d'une collection NFT ERC-1155 dédiée au JO 2024 :
+- Création d'un smart contrat spécifique.
+- Utilisation de https://nft.storage pour héberger les metadatas et les images.
 
-- Créarion d'un smart contrat spécifique.
-- Utilisation de l'IA Midjourney pour créér des images.
-- Utilisation de https://nft.storage pour héberger les images.
-- Utilisation de https://nft.storage pour héberger les metadatas json.
-- "mint" de la collection NFTs.
+## frontend
+Création de l'application (dapp) qui permet d'intéragir avec le backend.
+              Utilise la librairie React JS et le framework Next JS.
+              Pour le design le fronted s’appuie sur Chakra UI.
+              Le composant Rainbowkit permet se connecter au Wallet de l’utilisateur 
+              Wagmi pour la librairie de hooks Ethereum.
 
-## Partie 2
-
-Mise en place de l'échange de jetons
-
-## Installation - pré-requis
+## Installation - pré-requis du backend
 - npm 8.1.0
 - node v16.13.0
 - yarn 1.22.19
