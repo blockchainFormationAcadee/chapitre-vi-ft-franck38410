@@ -13,7 +13,7 @@ export default function Header() {
                     < ActiveLink children="Accueil" href="/" />
                     < ActiveLink children="Quêtes" href="/Quetes" />
                     < ActiveLink children="JO" href="/MyJo" />
-                    < ActiveLink children="Exchange" href="/ExchangeJo" />
+                    < ActiveLink children="Echange" href="/ExchangeJo" />
                     < ActiveLink children="Unique" href="/MyUnique" />
                 </Flex>
             ) : (

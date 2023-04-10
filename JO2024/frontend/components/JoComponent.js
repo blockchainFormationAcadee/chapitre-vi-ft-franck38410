@@ -4,8 +4,9 @@ import { useSigner } from 'wagmi'
 import { ethers } from 'ethers';
 import Contract from '../../backend/artifacts/contracts/JO2024.sol/JO2024.json';
 import JsonMetadatas from 'components/JsonMetadatas'
+import { contractAddress } from 'config/constants';
 
-function JO2024Component(props) {
+function JoComponent(props) {
  
   const [json, setJson] = useState(null);
   const { data: signer } = useSigner()
@@ -63,9 +64,9 @@ function JO2024Component(props) {
         <CardFooter>
           <ButtonGroup spacing='2'>
             {(props.tokenID < 5 ? (
-                <Button variant='solid' colorScheme='blue'onClick={() => burn(props.tokenID)}>Transforme pour {props.amountBurn}</Button>
+                <Button variant='solid' colorScheme='blue' onClick={() => burn(props.tokenID)}>Transforme pour {props.amountBurn}</Button>
               ) : (
-                <Button variant='solid' colorScheme='blue'onClick={() => alert("Bientôt disponible")}>Voir le billet</Button>
+                <Button variant='solid' colorScheme='blue' onClick={() => alert("Bientôt disponible")}>Voir le billet</Button>
             ))}
           </ButtonGroup>
         </CardFooter>
@@ -78,5 +79,5 @@ function JO2024Component(props) {
       </Center>
       )
   }
-  export default JO2024Component;
+  export default JoComponent;
   

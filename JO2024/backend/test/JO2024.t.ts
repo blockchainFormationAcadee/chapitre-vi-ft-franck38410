@@ -103,6 +103,7 @@ describe("JO2024", function () {
 
     });
   });
+
   describe("exchangeStart", () => {
     it("Should exchangeStart correctly", async () => {
       await instanceJO2024.mint(0, 1);
@@ -114,14 +115,35 @@ describe("JO2024", function () {
     });
   });
 
-  describe("exchangeFound", () => {
+  describe("exchangeCancelStart", () => {
+    it("Should exchangeCancelStart correctly", async () => {
+      await instanceJO2024.mint(0, 1);
+      await instanceJO2024.exchangeStart(0,1,1);
+      expect(await instanceJO2024.exchangeState()).to.be.equal(1);
+      await instanceJO2024.exchangeCancelStart();
+      expect(await instanceJO2024.exchangeState()).to.be.equal(0);
+    });
+  });
+
+  describe("getAllExchangeStart", () => {
+    it("Should getAllExchangeStart correctly", async () => {
+      await instanceJO2024.mint(0, 1);
+      expect(await instanceJO2024.balanceOf(owner.address, 0)).to.be.equal(1);
+      await instanceJO2024.exchangeStart(0,1,1);
+    });
+  });
+
+  describe("exchangeFound with event", () => {
     it("Should exchangeFound correctly", async () => {
       await instanceJO2024.connect(signer1).mint(4, 10);
       await instanceJO2024.connect(signer2).mint(3, 10);
       expect(await instanceJO2024.balanceOf(signer1.address, 4)).to.be.equal(10);
       expect(await instanceJO2024.balanceOf(signer2.address, 3)).to.be.equal(10);
+      
       await instanceJO2024.connect(signer1).exchangeStart(4, 3, 10);
-      await instanceJO2024.connect(signer2).exchangeFound(signer1.address);
+      
+      await expect (instanceJO2024.connect(signer2).exchangeFound(signer1.address)).to.emit(instanceJO2024, "ExchangeEvent")
+      .withArgs(signer1.address, signer2.address, 4, 3, 10);
 
       expect(await instanceJO2024.balanceOf(signer1.address, 4)).to.be.equal(0);
       expect(await instanceJO2024.balanceOf(signer1.address, 3)).to.be.equal(10);

@@ -49,7 +49,7 @@ export default function Quetes() {
         <Heading>Les quêtes du jour </Heading>
           <Flex height="40vh" justifyContent="space-between" alignItems="center" p="2rem">
               {(isConnected ? (
-                <Flex direction="row">
+                <Flex direction="column">
                   <Flex mt="2rem">
                     <Box boxSize='100%'>
                       <Text align="left">Quel est le record du monde 100m ? Gain 100 JO</Text>
@@ -57,13 +57,13 @@ export default function Quetes() {
                       <Button onClick={() => mint(0,100)}>9s58s</Button><br/><br/>
                       <Button onClick={() => nonValide()}>10s58</Button><br/><br/>
                     </Box>  
-                    <Box boxSize='33%'>
+                    <Box boxSize='100%'>
                       <Text align="left">Qui a été champions olympiques d’aviron dans la catégorie deux de couple à Tokyo ? Gain 100 JO</Text>
                       <Button onClick={() => nonValide()}>Ruta et Oppo</Button><br/><br/>
                       <Button onClick={() => nonValide()}>Odonovan et Mc Carthy</Button><br/><br/>
                       <Button onClick={() => mint(1,100)}>Androdias et Boucheron</Button><br/><br/>
                     </Box>     
-                    <Box boxSize='33%'>
+                    <Box boxSize='100%'>
                       <Text align="left">En quel année l'escrime est entrée au JO ? Gain 900 JO</Text>
                       <Button onClick={() => mint(2,900)}>1896</Button><br/><br/>
                       <Button onClick={() => nonValide()}>1925</Button><br/><br/>
@@ -73,7 +73,7 @@ export default function Quetes() {
                 </Flex>
               ) : (
                   <Box boxSize='100%' margin="100">
-                      <Text align="center">Merci de vous connecter</Text>
+                      <Text color='blue.600' fontSize='30' align="center">Merci de vous connecter</Text>
                   </Box>          
               ))}
           </Flex>

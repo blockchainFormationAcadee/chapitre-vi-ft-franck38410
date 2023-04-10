@@ -36,8 +36,8 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
 
     /// Structure to save the exchange fongible NFTs between 2 players 
     struct Exchange {
-        uint256 TypeFrom;
-        uint256 TypeTo;
+        uint256 typeFrom;
+        uint256 typeTo;
         uint256 amount;
         address to;
         ExchangeState exchangeState;
@@ -45,6 +45,13 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
 
     /// Map of address from => to Exchange Structure. The current exchanges
     mapping(address => Exchange) private _mapToExchange;
+
+    event ExchangeEvent(address indexed from, address indexed to, uint256 typeFom, uint256 typeTo, uint256 amount);
+
+    modifier isAddressValid(address _address) {
+        require(_address != address(0), "Address not valide");
+        _;
+    }
 
     /// @dev Constructor 
     /// set _uri 
@@ -93,15 +100,23 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
         setApprovalForAll(address(this), true);
     }
 
+    /// @notice exchangeCancelStart NFTs type between 2 address
+    function exchangeCancelStart() public isAddressValid(msg.sender) {
+        console.log("exchangeCancelStart msg.sender %s", msg.sender);
+        require(_mapToExchange[msg.sender].exchangeState == ExchangeState.Start, "Exchange not to Start");
+        delete _mapToExchange[msg.sender];
+        setApprovalForAll(address(this), false);
+    }
+
     /// @notice exchange NFTs found by msg.sender (to)
     /// @param _from The address who have started the exchange
-    function exchangeFound(address _from) public {
+    function exchangeFound(address _from) public isAddressValid(_from) {
         console.log("exchangeFound _from %s", _from);
-        require(_from != address(0), "Address not valide");
-        require(balanceOf(msg.sender, _mapToExchange[_from].TypeTo) >= _mapToExchange[_from].amount, "Insufficient balance for transfer : to");
-        require(balanceOf(_from, _mapToExchange[_from].TypeFrom) >= _mapToExchange[_from].amount, "Insufficient balance for transfer : from");
+        require(balanceOf(msg.sender, _mapToExchange[_from].typeTo) >= _mapToExchange[_from].amount, "Insufficient balance for transfer : to");
+        require(balanceOf(_from, _mapToExchange[_from].typeFrom) >= _mapToExchange[_from].amount, "Insufficient balance for transfer : from");
         require(_mapToExchange[_from].exchangeState == ExchangeState.Start, "Exchange not in start");
         _mapToExchange[_from].to = msg.sender;
+        emit ExchangeEvent(_from, msg.sender, _mapToExchange[_from].typeFrom, _mapToExchange[_from].typeTo, _mapToExchange[_from].amount);
         setApprovalForAll(address(this), true);
         exchangeToDoByContract(_from);
         setApprovalForAll(address(this), false);
@@ -121,14 +136,13 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
         console.log("exchangeByContract _from %s", _from);
         require(msg.sender == address(this), "Only contract address could exchange");
         _mapToExchange[_from].exchangeState = ExchangeState.ToClose;
-        safeTransferFrom(_from, _mapToExchange[_from].to, _mapToExchange[_from].TypeFrom, _mapToExchange[_from].amount, "0x0");
-        safeTransferFrom(_mapToExchange[_from].to, _from, _mapToExchange[_from].TypeTo, _mapToExchange[_from].amount, "0x0");
+        safeTransferFrom(_from, _mapToExchange[_from].to, _mapToExchange[_from].typeFrom, _mapToExchange[_from].amount, "0x0");
+        safeTransferFrom(_mapToExchange[_from].to, _from, _mapToExchange[_from].typeTo, _mapToExchange[_from].amount, "0x0");
     }
 
     /// @notice exchangeClose NFTs type between 2 address
-    function exchangeClose() public {
+    function exchangeClose() public isAddressValid(msg.sender) {
         console.log("exchangeClose msg.sender %s", msg.sender);
-        require(msg.sender != address(0), "Address not valide");
         require(_mapToExchange[msg.sender].exchangeState == ExchangeState.ToClose, "Exchange not to close");
         delete _mapToExchange[msg.sender];
         setApprovalForAll(address(this), false);

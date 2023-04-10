@@ -2,7 +2,7 @@ import { Heading, Text, Box, SimpleGrid } from '@chakra-ui/react';
 import { useAccount, useProvider} from 'wagmi'
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import JO2024 from "../components/JO2024"
+import JoComponent from "../components/JoComponent"
 import Contract from '../../backend/artifacts/contracts/JO2024.sol/JO2024.json';
 import { contractAddress } from 'config/constants';
 
@@ -63,16 +63,16 @@ const MyUnique = () => {
             (
                 <Box>
                 <SimpleGrid columns={[1, null, 2, null, 3, null, 4, null, 5, null]} spacing='10px'>
-                    <JO2024 tokenID = '5' jo={nbMintedAthletisme} amountBurn={amountBurn} supply={supplyAthletisme} minted={mintedAthletisme}/>
-                    <JO2024 tokenID = '6' jo={nbMintedAviron} amountBurn={amountBurn} supply={supplyAviron} minted={mintedAviron}/>
-                    <JO2024 tokenID = '7' jo={nbMintedEscrime} amountBurn={amountBurn} supply={supplyEscrime} minted={mintedEscrime}/>
-                    <JO2024 tokenID = '8' jo={nbMintedBasketball} amountBurn={amountBurn} supply={supplyBasketball} minted={mintedBasketball}/>
-                    <JO2024 tokenID = '9' jo={nbMintedBoxe} amountBurn={amountBurn} supply={supplyBoxe} minted={mintedBoxe}/>
+                    <JoComponent tokenID = '5' jo={nbMintedAthletisme} amountBurn={amountBurn} supply={supplyAthletisme} minted={mintedAthletisme}/>
+                    <JoComponent tokenID = '6' jo={nbMintedAviron} amountBurn={amountBurn} supply={supplyAviron} minted={mintedAviron}/>
+                    <JoComponent tokenID = '7' jo={nbMintedEscrime} amountBurn={amountBurn} supply={supplyEscrime} minted={mintedEscrime}/>
+                    <JoComponent tokenID = '8' jo={nbMintedBasketball} amountBurn={amountBurn} supply={supplyBasketball} minted={mintedBasketball}/>
+                    <JoComponent tokenID = '9' jo={nbMintedBoxe} amountBurn={amountBurn} supply={supplyBoxe} minted={mintedBoxe}/>
                 </SimpleGrid>
                 </Box>
             ) :
             (  
-                <Text>non connecté</Text>
+                <Text color='blue.600' fontSize='30' align="center">Merci de vous connecter</Text>
             )
         }
         </SimpleGrid>
