@@ -1,4 +1,4 @@
-import { Heading, Flex, Text, Button, useToast, Input, Box, Select } from '@chakra-ui/react';
+import { Heading, Flex, Text, Button, useToast, Input, Box, Select, Badge } from '@chakra-ui/react';
 import { useAccount, useProvider, useSigner } from 'wagmi'
 import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
@@ -36,7 +36,7 @@ export default function ExchangeJo() {
           getExchangeStateToken()
           toast({
             title: 'Félicitations !',
-            description: "Vous avez bien demandé un échange de vos NFT JO2024 !",
+            description: "Vous avez bien demandé un échange de sport JO2024 !",
             status: 'success',
             duration: 5000,
             isClosable: true,
@@ -61,7 +61,7 @@ export default function ExchangeJo() {
           getExchangeStateToken()
           toast({
             title: 'Félicitations !',
-            description: "Vous avez bien demandé un échange de vos NFT JO2024 !",
+            description: "Vous avez bien annulé l'échange.",
             status: 'success',
             duration: 5000,
             isClosable: true,
@@ -129,42 +129,87 @@ export default function ExchangeJo() {
     }
 
     return (
-        <Box>
-        <Heading>Echange </Heading>
-        <Flex height="15vh" justifyContent="space-between" alignItems="center" p="2rem">
+      <Box>
+        <Heading m={5}>Echange </Heading>
             {(isConnected ? (
-                <Box boxSize='100%' margin="100">
-                    <Text color='blue.600' fontSize='24' align="left">JO Sport à échanger :</Text>
-                    <select onChange={(e) => { setExchangeJoFrom(e.target.value)} } >
-                      <option value="0">Athlétisme</option>
-                      <option value="1">Aviron</option>
-                      <option value="2">Escrime</option>
-                      <option value="3">Basketball</option>
-                      <option value="4">Boxe</option>
-                    </select><br/>
-                    <Text color='blue.600' fontSize='24' align="left">JO Sport recherché :</Text>
-                    <select onChange={(e) => { setExchangeJoTo(e.target.value)} } >
-                      <option value="0">Athlétisme</option>
-                      <option value="1">Aviron</option>
-                      <option value="2">Escrime</option>
-                      <option value="3">Basketball</option>
-                      <option value="4">Boxe</option>
-                    </select>
-                    <Text color='blue.600' fontSize='24' align="left">Quantité : </Text>
-                    <Input mt="1rem" placeholder="Quantité : " onChange={(e) => setExchangeJoAmount(e.target.value)} />
-                    <Button variant='solid' colorScheme='blue' onClick={() => exchangeStart()}>Démarre un échange</Button>
-                    <Button variant='solid' colorScheme='blue' onClick={() => exchangeCancelStart()}>Arrêter l'échange</Button>
-                    <Text color='blue.600' fontSize='24' align="left">Etat de l'échange :{exchangeStateToken}</Text>
-                    <br/><br/>
-                    <Button variant='solid' colorScheme='blue' onClick={() => exchangeFound()}>Faire l'échange</Button><br/><br/>
-                    <Button variant='solid' colorScheme='blue' onClick={() => exchangeClose()}>Clôturer l'échange</Button><br/>
-                </Box>
+                <Flex justifyContent="center">
+                  <Box maxW='full' borderWidth='1px' borderRadius='lg' overflow='hidden' w={['100%', '100%', '100%', '50%']}>
+                    <Box p='4' borderWidth='1px'> 
+                      <Box p='4'>
+                          <Badge fontSize='12' borderRadius='full' px='2' colorScheme='teal'>
+                            Choississez le sport à échanger, à recevoir et la quantité
+                          </Badge>
+                      </Box>
+                      <Box p='2'>
+                        <Box display='flex' alignItems='baseline'>
+                          <Box
+                            color='gray.500'
+                            fontWeight='bold'
+                            letterSpacing='wide'
+                            fontSize='20'
+                            textTransform='uppercase'
+                            ml='5'
+                          >
+                          <select ml='5' onChange={(e) => { setExchangeJoFrom(e.target.value)} } >
+                            <option value="">Sélectionner votre sport à échanger</option>
+                            <option value="0">Athlétisme</option>
+                            <option value="1">Aviron</option>
+                            <option value="2">Escrime</option>
+                            <option value="3">Basketball</option>
+                            <option value="4">Boxe</option>
+                          </select>
+                          <select ml='5' onChange={(e) => { setExchangeJoTo(e.target.value)} } >
+                            <option value="">Sélectionner votre sport recherché</option>
+                            <option value="0">Athlétisme</option>
+                            <option value="1">Aviron</option>
+                            <option value="2">Escrime</option>
+                            <option value="3">Basketball</option>
+                            <option value="4">Boxe</option>
+                          </select>
+                          <Input ml='5' type="type" maxLength="5" width="100px" placeholder="Quantité " onChange={(e) => setExchangeJoAmount(e.target.value)} />
+                          </Box>
+                        </Box>
+                      </Box>
+                      <Box p='2'>
+                        <Box display='flex' alignItems='baseline'>
+                          <Button justifyContent="right" variant='solid' colorScheme='blue' onClick={() => exchangeStart()}>Démarre l'échange</Button>                   
+                        </Box>
+                      </Box>
+                    </Box>
+                    <Box><br/></Box>
+                    <Box p='4' borderWidth='1px'>    
+                      <Box p='4'>
+                          <Badge fontSize='12' borderRadius='full' px='2' colorScheme='teal'>
+                            Etat de l'échange en cours
+                          </Badge>
+                      </Box>                                                
+                      <Box p='2'>
+                       <Box display='flex' alignItems='baseline'>
+                        <Button variant='solid' colorScheme='blue' onClick={() => exchangeCancelStart()}>Annuler l'échange</Button>                      
+                        <Text m="30" color='blue.600' fontSize='20' align="left">Etat de l'échange : {exchangeStateToken}</Text>
+                       </Box>
+                      </Box>
+                    </Box>
+                    <Box><br/></Box>
+                    <Box p='4' borderWidth='1px'>    
+                      <Box p='4'>
+                          <Badge fontSize='12' borderRadius='full' px='2' colorScheme='teal'>
+                            Liste des demandes d'échange
+                          </Badge>
+                      </Box>                                                
+                      <Box p='2'>
+                       <Box display='flex' alignItems='baseline'>
+                        <Button variant='solid' colorScheme='blue' onClick={() => exchangeFound()}>Faire l'échange</Button>
+                       </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Flex>
             ) : (
                 <Box boxSize='100%' margin="100">
                     <Text color='blue.600' fontSize='30' align="center">Merci de vous connecter</Text>
                 </Box>          
             ))}
-        </Flex>
-        </Box>
+      </Box>
    )
 }

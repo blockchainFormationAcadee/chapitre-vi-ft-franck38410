@@ -57,7 +57,7 @@ const MyUnique = () => {
 
     return ( 
         <Box>
-        <Heading>Mes Uniques 2024 </Heading>
+        <Heading m={5}>Mes Uniques 2024 </Heading>
         <SimpleGrid columns={[1, null]} spacing='40px'>
         {isConnected ? 
             (

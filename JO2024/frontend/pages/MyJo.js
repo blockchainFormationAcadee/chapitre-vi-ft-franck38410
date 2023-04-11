@@ -57,7 +57,7 @@ const MyJo2024 = () => {
 
     return ( 
         <Box>
-        <Heading>Mes JO 2024 </Heading>
+        <Heading m={5}>Mes JO 2024 </Heading>
         <SimpleGrid columns={[1, null]} spacing='40px'>
         {isConnected ? 
             (
