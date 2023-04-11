@@ -46,37 +46,31 @@ export default function Quetes() {
     }
     return (
       <Box>
-        <Heading>Les quêtes du jour </Heading>
-          <Flex height="40vh" justifyContent="space-between" alignItems="center" p="2rem">
+        <Heading m={5}>Les quêtes du jour </Heading>
               {(isConnected ? (
-                <Flex direction="column">
-                  <Flex mt="2rem">
-                    <Box boxSize='100%'>
-                      <Text align="left">Quel est le record du monde 100m ? Gain 100 JO</Text>
-                      <Button onClick={() => nonValide()}>8s58s</Button><br/><br/>
-                      <Button onClick={() => mint(0,100)}>9s58s</Button><br/><br/>
-                      <Button onClick={() => nonValide()}>10s58</Button><br/><br/>
-                    </Box>  
-                    <Box boxSize='100%'>
-                      <Text align="left">Qui a été champions olympiques d’aviron dans la catégorie deux de couple à Tokyo ? Gain 100 JO</Text>
-                      <Button onClick={() => nonValide()}>Ruta et Oppo</Button><br/><br/>
-                      <Button onClick={() => nonValide()}>Odonovan et Mc Carthy</Button><br/><br/>
-                      <Button onClick={() => mint(1,100)}>Androdias et Boucheron</Button><br/><br/>
-                    </Box>     
-                    <Box boxSize='100%'>
-                      <Text align="left">En quel année l'escrime est entrée au JO ? Gain 900 JO</Text>
-                      <Button onClick={() => mint(2,900)}>1896</Button><br/><br/>
-                      <Button onClick={() => nonValide()}>1925</Button><br/><br/>
-                      <Button onClick={() => nonValide()}>1948</Button><br/><br/>
+                  <Flex width="full" align="left" justifyContent="center">
+                    <Box py={10}>
+                      <Text color='blue.600' fontSize='24'>Quel est le record du monde 100m ? (Gain 100 JO)</Text>
+                      <Button onClick={() => nonValide()}>8s58s</Button>
+                      <Button m={5} onClick={() => mint(0,100)}>9s58s</Button>
+                      <Button onClick={() => nonValide()}>10s58</Button>
+
+                      <Text color='blue.600' fontSize='24' pt={8}>Qui a été champion olympique d’aviron dans la catégorie deux de couple à Tokyo ? (Gain 100 JO)</Text>
+                      <Button onClick={() => nonValide()}>Ruta et Oppo</Button>
+                      <Button m={5} onClick={() => nonValide()}>Odonovan et Mc Carthy</Button>
+                      <Button onClick={() => mint(1,100)}>Androdias et Boucheron</Button><br/>
+
+                      <Text color='blue.600' fontSize='24' pt={8}>En quelle année l'escrime est entrée au JO ? (Gain 900 JO)</Text>
+                      <Button onClick={() => mint(2,900)}>1896</Button>
+                      <Button m={5} onClick={() => nonValide()}>1925</Button>
+                      <Button onClick={() => nonValide()}>1948</Button>
                     </Box>                                             
                   </Flex>
-                </Flex>
               ) : (
                   <Box boxSize='100%' margin="100">
                       <Text color='blue.600' fontSize='30' align="center">Merci de vous connecter</Text>
                   </Box>          
               ))}
-          </Flex>
-        </Box>
+      </Box>
    )
 }
