@@ -14,12 +14,30 @@ export default function ExchangeJo() {
     const [exchangeJoFrom, setExchangeJoFrom] = useState(null);
     const [exchangeJoTo, setExchangeJoTo] = useState(null);
     const [exchangeJoAmount, setExchangeJoAmount] = useState(null);
+    const [events, setEvents] = useState(null)
 
     useEffect(() => {
       if(isConnected) {
         getExchangeStateToken()
       }
-    }, [address])
+    }, []) 
+
+    useEffect(() => {
+      const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
+      contract.on("ExchangeEvent", (from, to, typeFom, typeTo, amount) => {
+          getExchangeStateToken()
+          toast({
+              title: 'Evenement : échange terminé',
+              description: "De : " + from + " - à " + to + " - pour une quantité de " + amount,
+              status: 'success',
+              duration: 8000,
+              isClosable: true,
+          })
+      })
+      return () => {
+          contract.removeAllListeners();
+      };
+    }, [])
 
     const getExchangeStateToken = async() => {
       const contract = new ethers.Contract(contractAddress, Contract.abi, provider);
@@ -84,13 +102,7 @@ export default function ExchangeJo() {
           let transaction = await contract.exchangeFound(formAcadeeAddress);
           transaction.wait();
           getExchangeStateToken()
-          toast({
-            title: 'Félicitations !',
-            description: "Vous avez bien trouvé un échange de vos NFT JO2024 !",
-            status: 'success',
-            duration: 5000,
-            isClosable: true,
-          })
+
         }
         catch {
           toast({
@@ -187,6 +199,7 @@ export default function ExchangeJo() {
                        <Box display='flex' alignItems='baseline'>
                         <Button variant='solid' colorScheme='blue' onClick={() => exchangeCancelStart()}>Annuler l'échange</Button>                      
                         <Text m="30" color='blue.600' fontSize='20' align="left">Etat de l'échange : {exchangeStateToken}</Text>
+                        <Button m="30" variant='solid' colorScheme='blue' onClick={() => exchangeClose()}>Clôturer l'échange</Button>
                        </Box>
                       </Box>
                     </Box>
