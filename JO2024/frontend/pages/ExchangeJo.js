@@ -99,6 +99,7 @@ export default function ExchangeJo() {
           console.log("exchangeFound");
           const contractExchange = new ethers.Contract(contractAddress, Contract.abi, provider);
           let addressExchangeStart = await contractExchange.getExchangeStart();
+          console.log("addressExchangeStart= "+addressExchangeStart);
           const contract = new ethers.Contract(contractAddress, Contract.abi, signer);
           let transaction = await contract.exchangeFound(addressExchangeStart);
           transaction.wait();
