@@ -114,8 +114,7 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
 
     /// @notice getExchangeStart 
     /// @return exchange start
-    function getExchangeStart() public view isAddressValid(msg.sender) returns (address){
-        console.log("getExchangeStart msg.sender %s", msg.sender);
+    function getExchangeStart() public view returns (address){
         return addressExchangestart;
     }
 
