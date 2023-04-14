@@ -2,7 +2,7 @@ import { useToast, Center,  Text,  Card, CardBody, CardFooter, Image, Stack, Hea
 import { useState, useEffect } from 'react';
 import { useSigner } from 'wagmi'
 import { ethers } from 'ethers';
-import Contract from '../../backend/artifacts/contracts/JO2024.sol/JO2024.json';
+import Contract from 'config/JO2024.json';
 import JsonMetadatas from 'components/JsonMetadatas'
 import { contractAddress } from 'config/constants';
 

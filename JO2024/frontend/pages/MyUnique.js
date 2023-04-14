@@ -3,7 +3,7 @@ import { useAccount, useProvider} from 'wagmi'
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import JoComponent from "../components/JoComponent"
-import Contract from '../../backend/artifacts/contracts/JO2024.sol/JO2024.json';
+import Contract from 'config/JO2024.json';
 import { contractAddress } from 'config/constants';
 
 const MyUnique = () => {

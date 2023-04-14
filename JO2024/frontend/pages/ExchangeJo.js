@@ -2,7 +2,7 @@ import { Heading, Flex, Text, Button, useToast, Input, Box, Select, Badge } from
 import { useAccount, useProvider, useSigner } from 'wagmi'
 import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
-import Contract from '../../backend/artifacts/contracts/JO2024.sol/JO2024.json';
+import Contract from 'config/JO2024.json';
 import { formAcadeeAddress, contractAddress } from 'config/constants';
 
 export default function ExchangeJo() {
