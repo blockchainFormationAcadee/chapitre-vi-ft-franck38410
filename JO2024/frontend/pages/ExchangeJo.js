@@ -11,13 +11,15 @@ export default function ExchangeJo() {
     const { data: signer } = useSigner();
     const toast = useToast();
     const [exchangeStateToken, setExchangeStateToken] = useState(null);
+    const [addressExchangeStart, setAddressExchangeStart] = useState(null);
     const [exchangeJoFrom, setExchangeJoFrom] = useState(null);
     const [exchangeJoTo, setExchangeJoTo] = useState(null);
     const [exchangeJoAmount, setExchangeJoAmount] = useState(null);
 
     useEffect(() => {
       if(isConnected) {
-        getExchangeStateToken()
+        getExchangeStateToken();
+        getAddressExchangeStart()
       }
     }, []) 
 
@@ -43,7 +45,12 @@ export default function ExchangeJo() {
       let stateToken = await contract.exchangeState();
       setExchangeStateToken(stateToken.toString());
     }
-
+    const getAddressExchangeStart = async() => {
+      const contract = new ethers.Contract(contractAddress, Contract.abi, provider);
+      let address = await contract.getExchangeStart();
+      console.log("exchangeStart address= "+address);
+      setAddressExchangeStart(address);
+    }
     const exchangeStart = async() => {
         try {
           console.log("exchangeStart typeFrom= "+exchangeJoFrom+" typeTo= "+exchangeJoTo+" amount= "+exchangeJoAmount);
@@ -96,10 +103,7 @@ export default function ExchangeJo() {
       }
       const exchangeFound = async() => {
         try {
-          console.log("exchangeFound");
-          const contractExchange = new ethers.Contract(contractAddress, Contract.abi, provider);
-          let addressExchangeStart = await contractExchange.getExchangeStart();
-          console.log("addressExchangeStart= "+addressExchangeStart);
+          console.log("exchangeFound addressExchangeStart= "+addressExchangeStart);
           const contract = new ethers.Contract(contractAddress, Contract.abi, signer);
           let transaction = await contract.exchangeFound(addressExchangeStart);
           transaction.wait();
@@ -211,12 +215,16 @@ export default function ExchangeJo() {
                           <Badge fontSize='12' borderRadius='full' px='2' colorScheme='teal'>
                             Liste des demandes d'échange
                           </Badge>
-                      </Box>                                                
-                      <Box p='2'>
-                       <Box display='flex' alignItems='baseline'>
-                        <Button variant='solid' colorScheme='blue' onClick={() => exchangeFound()}>Faire l'échange</Button>
-                       </Box>
-                      </Box>
+                      </Box>  
+                      {(addressExchangeStart==="0x0000000000000000000000000000000000000000" ? (
+                            <Text m="30" color='blue.600' fontSize='20' align="left">Pas de proposition d'échange</Text>
+                          ) : (
+                          <Box p='2'>
+                            <Box display='flex' alignItems='baseline'>
+                            <Button variant='solid' colorScheme='blue' onClick={() => exchangeFound()}>Faire l'échange avec : {addressExchangeStart}</Button>
+                            </Box>
+                          </Box>
+                      ))}
                     </Box>
                   </Box>
                 </Flex>
