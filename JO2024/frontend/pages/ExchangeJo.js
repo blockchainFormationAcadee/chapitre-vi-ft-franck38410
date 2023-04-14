@@ -142,14 +142,14 @@ export default function ExchangeJo() {
 
     return (
       <Box>
-        <Heading m={5}>Echange </Heading>
+        <Heading m={5}>Echange tes JO </Heading>
             {(isConnected ? (
                 <Flex justifyContent="center">
                   <Box maxW='full' borderWidth='1px' borderRadius='lg' overflow='hidden' w={['100%', '100%', '100%', '50%']}>
                     <Box p='4' borderWidth='1px'> 
                       <Box p='4'>
                           <Badge fontSize='12' borderRadius='full' px='2' colorScheme='teal'>
-                            Choississez le sport à échanger, à recevoir et la quantité
+                            Choississez les sports à échanger et la quantité de JO
                           </Badge>
                       </Box>
                       <Box p='2'>

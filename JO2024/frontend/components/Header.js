@@ -17,7 +17,7 @@ export default function Header() {
                     < ActiveLink children="Unique" href="/MyUnique" />
                 </Flex>
             ) : (
-                < ActiveLink children="Home" href="/" />
+                < ActiveLink children="Accueil" href="/" />
             ))}
             <ConnectButton label="Connexion JO2024" showBalance={false}/>
         </Flex>

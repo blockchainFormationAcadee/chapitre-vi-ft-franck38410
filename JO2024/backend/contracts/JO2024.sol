@@ -45,6 +45,8 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
 
     /// Map of address from => to Exchange Structure. The current exchanges
     mapping(address => Exchange) private _mapToExchange;
+    /// Last address exchange started
+    address addressExchangestart;
 
     event ExchangeEvent(address indexed from, address indexed to, uint256 typeFom, uint256 typeTo, uint256 amount);
 
@@ -97,6 +99,7 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
         require (_amount > 0, "Mint Zero");
         require(_mapToExchange[msg.sender].exchangeState != ExchangeState.ToClose, "Exchange to close");
         _mapToExchange[msg.sender] = Exchange(_TypeFrom, _TypeTo, _amount, address(0), ExchangeState.Start);
+        addressExchangestart = msg.sender;
         setApprovalForAll(address(this), true);
     }
 
@@ -105,7 +108,15 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
         console.log("exchangeCancelStart msg.sender %s", msg.sender);
         require(_mapToExchange[msg.sender].exchangeState == ExchangeState.Start, "Exchange not to Start");
         delete _mapToExchange[msg.sender];
+        addressExchangestart = address(0);
         setApprovalForAll(address(this), false);
+    }
+
+    /// @notice getExchangeStart 
+    /// @return exchange start
+    function getExchangeStart() public view isAddressValid(msg.sender) returns (address){
+        console.log("getExchangeStart msg.sender %s", msg.sender);
+        return addressExchangestart;
     }
 
     /// @notice exchange NFTs found by msg.sender (to)
@@ -116,6 +127,7 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
         require(balanceOf(_from, _mapToExchange[_from].typeFrom) >= _mapToExchange[_from].amount, "Insufficient balance for transfer : from");
         require(_mapToExchange[_from].exchangeState == ExchangeState.Start, "Exchange not in start");
         _mapToExchange[_from].to = msg.sender;
+        addressExchangestart = address(0);
         emit ExchangeEvent(_from, msg.sender, _mapToExchange[_from].typeFrom, _mapToExchange[_from].typeTo, _mapToExchange[_from].amount);
         setApprovalForAll(address(this), true);
         exchangeToDoByContract(_from);

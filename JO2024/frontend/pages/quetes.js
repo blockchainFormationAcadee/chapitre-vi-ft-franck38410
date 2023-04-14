@@ -51,8 +51,8 @@ export default function Quetes() {
                   <Flex width="full" align="left" justifyContent="center">
                     <Box py={10}>
                       <Text color='blue.600' fontSize='24'>Quel est le record du monde 100m ? (Gain 100 JO)</Text>
-                      <Button onClick={() => nonValide()}>8s58s</Button>
-                      <Button m={5} onClick={() => mint(0,100)}>9s58s</Button>
+                      <Button onClick={() => nonValide()}>8s58</Button>
+                      <Button m={5} onClick={() => mint(0,100)}>9s58</Button>
                       <Button onClick={() => nonValide()}>10s58</Button>
 
                       <Text color='blue.600' fontSize='24' pt={8}>Qui a été champion olympique d’aviron dans la catégorie deux de couple à Tokyo ? (Gain 100 JO)</Text>

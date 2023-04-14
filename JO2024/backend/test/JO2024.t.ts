@@ -125,11 +125,12 @@ describe("JO2024", function () {
     });
   });
 
-  describe("getAllExchangeStart", () => {
-    it("Should getAllExchangeStart correctly", async () => {
+  describe("getExchangeStart", () => {
+    it("Should getExchangeStart correctly", async () => {
       await instanceJO2024.mint(0, 1);
       expect(await instanceJO2024.balanceOf(owner.address, 0)).to.be.equal(1);
       await instanceJO2024.exchangeStart(0,1,1);
+      expect(await instanceJO2024.getExchangeStart()).to.be.equal(owner.address);
     });
   });
 
@@ -223,6 +224,20 @@ describe("JO2024", function () {
       expect(await instanceJO2024.paused()).to.be.equal(true);
       await instanceJO2024.unpause();
       expect(await instanceJO2024.paused()).to.be.equal(false);
+    });
+
+    describe("name", () => {
+      it("Should name correctly", async () => {
+        await instanceJO2024.mint(1, 10000);
+        expect(await instanceJO2024.name()).to.be.equal("JO 2024 Paris");
+      });
+    });
+
+    describe("symbol", () => {
+      it("Should symbol correctly", async () => {
+        await instanceJO2024.mint(1, 10000);
+        expect(await instanceJO2024.symbol()).to.be.equal("JO");
+      });
     });
 
   });
