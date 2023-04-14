@@ -11,7 +11,7 @@ export default function Header() {
             {(isConnected ? (
                 <Flex>
                     < ActiveLink children="Accueil" href="/" />
-                    < ActiveLink children="Quêtes" href="/Quetes" />
+                    < ActiveLink children="Quêtes" href="/quetes" />
                     < ActiveLink children="JO" href="/MyJo" />
                     < ActiveLink children="Echange" href="/ExchangeJo" />
                     < ActiveLink children="Unique" href="/MyUnique" />
