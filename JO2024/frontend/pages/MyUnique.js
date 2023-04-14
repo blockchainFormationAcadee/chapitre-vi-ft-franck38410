@@ -1,8 +1,8 @@
 import { Heading, Text, Box, SimpleGrid } from '@chakra-ui/react';
-import { useAccount, useProvider} from 'wagmi'
+import { useAccount, useProvider} from 'wagmi';
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import JoComponent from "../components/JoComponent"
+import JoComponent from "../components/JoComponent";
 import Contract from 'config/JO2024.json';
 import { contractAddress } from 'config/constants';
 
@@ -78,6 +78,6 @@ const MyUnique = () => {
         </SimpleGrid>
         </Box>
     );
-    };
+};
     
 export default MyUnique;
