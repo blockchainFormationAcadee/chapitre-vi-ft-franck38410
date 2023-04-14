@@ -85,6 +85,18 @@ describe("JO2024", function () {
     });
   });
 
+  describe("Mint max ok", () => {
+    it("Should mint max", async () => {
+      await instanceJO2024.connect(signer2).mint(4, 10000);
+    });
+  });
+
+  describe("Mint max+1 ko", () => {
+    it("Should mint max +1 ko", async () => {
+      await expect(instanceJO2024.mint(0, 10001)).to.be.revertedWith("All the NFT have been minted");
+    });
+  });
+
   describe("Multiple Minting", () => {
     it("Should mint correctly", async () => {
       await expect(instanceJO2024.mint(0, 0)).to.be.revertedWith("Mint Zero");

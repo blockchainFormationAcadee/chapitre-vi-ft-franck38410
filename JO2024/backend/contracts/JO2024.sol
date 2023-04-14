@@ -81,7 +81,7 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
     function mint(uint256 _Type, uint256 _amount) public whenNotPaused {
         console.log("mint _Type %s _amount %s", _Type, _amount);
         require(_Type <= supplies.length-1,"NFT does not exist");
-        require (minted[_Type] + 1 <= supplies[_Type], "All the NFT have been minted");
+        require (minted[_Type] + _amount <= supplies[_Type], "All the NFT have been minted");
         require (_amount > 0, "Mint Zero");
         _mint(msg.sender, _Type, _amount, "0x0");
         minted[_Type] += _amount;
