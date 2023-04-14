@@ -3,10 +3,10 @@ import { useAccount, useProvider, useSigner } from 'wagmi'
 import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
 import Contract from 'config/JO2024.json';
-import { formAcadeeAddress, contractAddress } from 'config/constants';
+import { contractAddress } from 'config/constants';
 
 export default function ExchangeJo() {
-    const { address, isConnected } = useAccount();
+    const { isConnected } = useAccount();
     const provider = useProvider();
     const { data: signer } = useSigner();
     const toast = useToast();
@@ -14,7 +14,6 @@ export default function ExchangeJo() {
     const [exchangeJoFrom, setExchangeJoFrom] = useState(null);
     const [exchangeJoTo, setExchangeJoTo] = useState(null);
     const [exchangeJoAmount, setExchangeJoAmount] = useState(null);
-    const [events, setEvents] = useState(null)
 
     useEffect(() => {
       if(isConnected) {
@@ -98,8 +97,10 @@ export default function ExchangeJo() {
       const exchangeFound = async() => {
         try {
           console.log("exchangeFound");
+          const contractExchange = new ethers.Contract(contractAddress, Contract.abi, provider);
+          let addressExchangeStart = await contractExchange.getExchangeStart();
           const contract = new ethers.Contract(contractAddress, Contract.abi, signer);
-          let transaction = await contract.exchangeFound(formAcadeeAddress);
+          let transaction = await contract.exchangeFound(addressExchangeStart);
           transaction.wait();
           getExchangeStateToken()
 
