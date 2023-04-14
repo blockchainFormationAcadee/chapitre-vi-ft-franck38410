@@ -1,7 +1,7 @@
 import { Heading, Flex, Text, Button, useToast, Box } from '@chakra-ui/react';
 import { useAccount, useSigner } from 'wagmi';
 import { ethers } from 'ethers';
-import JoComponent from "../components/JoComponent";
+import Contract from 'config/JO2024.json';
 import { contractAddress } from 'config/constants';
 
 const Quetes = () => {
