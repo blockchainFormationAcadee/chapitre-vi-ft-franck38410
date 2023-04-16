@@ -92,7 +92,7 @@ describe("JO2024", function () {
   });
 
   describe("Mint max+1 ko", () => {
-    it("Should mint max +1 ko", async () => {
+    it("Shouldn't mint max +1 ko", async () => {
       await expect(instanceJO2024.mint(0, 10001)).to.be.revertedWith("All the NFT have been minted");
     });
   });

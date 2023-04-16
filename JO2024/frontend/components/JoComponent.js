@@ -50,7 +50,7 @@ function JoComponent(props) {
       <Card maxW='md'>
         <CardBody>
           <Image
-            src={json.image}
+            src={json.image.replace("ipfs://", "https://")+".ipfs.nftstorage.link"}
             alt={json.description}
             borderRadius='lg'
           />

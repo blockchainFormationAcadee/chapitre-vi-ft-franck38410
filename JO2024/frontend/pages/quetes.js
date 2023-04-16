@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import Contract from 'config/JO2024.json';
 import { contractAddress } from 'config/constants';
 
-const Quetes = () => {
+const quetes = () => {
   const {  isConnected } = useAccount()
     const { data: signer } = useSigner()
     const toast = useToast()
@@ -73,4 +73,4 @@ const Quetes = () => {
       </Box>
    );
 };
-export default Quetes;
+export default quetes;

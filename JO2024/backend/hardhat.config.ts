@@ -30,8 +30,8 @@ const config: HardhatUserConfig = {
   },
   gasReporter: {
     enabled: true,
-    //outputFile: "gas-report.txt",
-    noColors: false,
+    outputFile: "gas-report.txt",
+    noColors: true,
     currency: "USD",
     coinmarketcap: process.env.COINMARKETCAP_API_KEY,
     token: "MATIC"

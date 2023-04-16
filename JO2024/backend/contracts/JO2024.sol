@@ -57,7 +57,7 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
 
     /// @dev Constructor 
     /// set _uri 
-    constructor() ERC1155("https://nftstorage.link/ipfs/bafybeie4rhk5qbnog5vbtvbzk6pcyweaxug7shyqrin6hum32x42vbllke/{id}.json") {
+    constructor() ERC1155("ipfs://bafybeiftb3tcrv4dp2vbfrzinjxg7ovxmhsad5s6o7pgz2hck5y5dnwnpm/{id}.json") {
     }
 
     /// set _uri only Ownner

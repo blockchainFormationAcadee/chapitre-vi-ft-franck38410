@@ -19,14 +19,14 @@ export default function ExchangeJo() {
     useEffect(() => {
       if(isConnected) {
         getExchangeStateToken();
-        getAddressExchangeStart()
+        getAddressExchangeStart();
       }
     }, []) 
 
     useEffect(() => {
       const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
       contract.on("ExchangeEvent", (from, to, typeFom, typeTo, amount) => {
-          getExchangeStateToken()
+          getExchangeStateToken();
           toast({
               title: 'Evenement : échange terminé',
               description: "De : " + from + " - à " + to + " - pour une quantité de " + amount,
@@ -55,7 +55,7 @@ export default function ExchangeJo() {
           const contract = new ethers.Contract(contractAddress, Contract.abi, signer);
           let transaction = await contract.exchangeStart(exchangeJoFrom, exchangeJoTo, exchangeJoAmount);
           transaction.wait();
-          getExchangeStateToken()
+          getExchangeStateToken();
           toast({
             title: 'Félicitations !',
             description: "Vous avez bien demandé un échange de sport JO2024 !",
@@ -80,7 +80,7 @@ export default function ExchangeJo() {
           const contract = new ethers.Contract(contractAddress, Contract.abi, signer);
           let transaction = await contract.exchangeCancelStart();
           transaction.wait();
-          getExchangeStateToken()
+          getExchangeStateToken();
           toast({
             title: 'Félicitations !',
             description: "Vous avez bien annulé l'échange.",
@@ -105,8 +105,7 @@ export default function ExchangeJo() {
           const contract = new ethers.Contract(contractAddress, Contract.abi, signer);
           let transaction = await contract.exchangeFound(addressExchangeStart);
           transaction.wait();
-          getExchangeStateToken()
-
+          getExchangeStateToken();
         }
         catch {
           toast({
@@ -124,7 +123,7 @@ export default function ExchangeJo() {
           const contract = new ethers.Contract(contractAddress, Contract.abi, signer);
           let transaction = await contract.exchangeClose();
           transaction.wait();
-          getExchangeStateToken()
+          getExchangeStateToken();
           toast({
             title: 'Félicitations !',
             description: "Vous avez bien fermé l'échange de vos NFT JO2024 !",

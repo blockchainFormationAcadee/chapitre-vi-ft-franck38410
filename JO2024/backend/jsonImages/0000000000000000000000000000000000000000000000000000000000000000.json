@@ -1,7 +1,7 @@
 {
     "description": "This is a collection of Athletisme NFTs. Olympic games Paris 2024",
     "external_url": "https://www.paris2024.org/fr/",
-    "image": "https://bafybeib2qiimyx64cuopeceksxbzcejwctofni4s33zsgoqunrk22dczye.ipfs.nftstorage.link",
+    "image": "ipfs://bafybeib2qiimyx64cuopeceksxbzcejwctofni4s33zsgoqunrk22dczye",
     "name": "Athletisme",
-    "attributes": [{"trait_type": "Type","value": "Sport"},{"trait_type": "Category","value": "Athletisme"},{"trait_type": "Level","value": "Top"}]
+    "attributes": [{"trait_type": "Type","value": "Sport"},{"trait_type": "Category","value": "Athletisme"},{"trait_type": "Level","value": "Top"},{"display_type": "boost_percentage","trait_type": "JO2024 Fantasy Increase","value": "50"}]
 }
