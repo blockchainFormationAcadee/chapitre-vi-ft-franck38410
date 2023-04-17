@@ -160,8 +160,8 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
     }
 
     /// @notice exchangeState
-    function exchangeState() public view returns (ExchangeState){
-        return(_mapToExchange[msg.sender].exchangeState);
+    function exchangeState() public view returns (uint8){
+        return(uint8(_mapToExchange[msg.sender].exchangeState));
     }
     
     /// @notice Burn fungible NFTs to get NFT Rewards
