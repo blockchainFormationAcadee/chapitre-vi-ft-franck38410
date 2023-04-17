@@ -42,7 +42,9 @@ export default function ExchangeJo() {
 
     const getExchangeStateToken = async() => {
       const contract = new ethers.Contract(contractAddress, Contract.abi, provider);
-      setExchangeStateToken((await contract.exchangeState()).toString());
+      const state = await contract.exchangeState();
+      console.log("getExchangeStateToken= "+state);
+      setExchangeStateToken(state);
     }
     const getAddressExchangeStart = async() => {
       const contract = new ethers.Contract(contractAddress, Contract.abi, provider);
