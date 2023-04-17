@@ -24,31 +24,32 @@ export default function ExchangeJo() {
     }, []) 
 
     useEffect(() => {
-      const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
-      contract.on("ExchangeEvent", (from, to, typeFom, typeTo, amount) => {
-          getExchangeStateToken();
-          toast({
-              title: 'Evenement : échange terminé',
-              description: "De : " + from + " - à " + to + " - pour une quantité de " + amount,
-              status: 'success',
-              duration: 8000,
-              isClosable: true,
-          })
-      })
-      return () => {
-          contract.removeAllListeners();
-      };
+        const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
+        contract.on("ExchangeEvent", (from, to, typeFom, typeTo, amount) => {
+            getExchangeStateToken();
+            getAddressExchangeStart();
+            toast({
+                title: 'Evenement : échange terminé',
+                description: "De : " + from + " - à " + to + " - pour une quantité de " + amount,
+                status: 'success',
+                duration: 8000,
+                isClosable: true,
+            })
+        })
+        return () => {
+            contract.removeAllListeners();
+        };
     }, [])
 
     const getExchangeStateToken = async() => {
       const contract = new ethers.Contract(contractAddress, Contract.abi, provider);
       setExchangeStateToken(await contract.exchangeState());
-      console.log("getExchangeStateToken= "+exchangeStateToken);
+      console.log("getExchangeStateToken exchangeStateToken= "+exchangeStateToken);
     }
     const getAddressExchangeStart = async() => {
       const contract = new ethers.Contract(contractAddress, Contract.abi, provider);
       setAddressExchangeStart(await contract.getExchangeStart());
-      console.log("exchangeStart addressExchangeStart= "+addressExchangeStart);
+      console.log("getAddressExchangeStart = "+addressExchangeStart);
     }
     const exchangeStart = async() => {
         try {
