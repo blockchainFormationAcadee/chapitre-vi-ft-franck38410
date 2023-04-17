@@ -80,7 +80,7 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
      /// @param _amount The amount to mint
     function mint(uint256 _Type, uint256 _amount) public whenNotPaused {
         console.log("mint _Type %s _amount %s", _Type, _amount);
-        require(_Type <= supplies.length-1,"NFT does not exist");
+        require(_Type <= 4,"Fongible does not exist");
         require (minted[_Type] + _amount <= supplies[_Type], "All the NFT have been minted");
         require (_amount > 0, "Mint Zero");
         _mint(msg.sender, _Type, _amount, "0x0");
@@ -168,12 +168,13 @@ contract JO2024 is ERC1155, Pausable, Ownable, IRecursive {
     /// @param _Type The NFT type to burn
     function burn(uint256 _Type) public {
         console.log("burn msg.sender %s _Type %s", msg.sender, _Type);
-        require(_Type <= 4,"NFT does not exist to burn");
-        require(balanceOf(msg.sender, _Type) >= amountBurn, "No NFTType sufficient to burn");
+        require(_Type <= 4,"Fongible does not exist to burn");
+        require(balanceOf(msg.sender, _Type) >= amountBurn, "No NFT Type sufficient to burn");
         require (minted[_Type+5] + 1 <= supplies[_Type+5], "The unique NFT have been minted");
         _burn(msg.sender, _Type, amountBurn);
         // mint unique NFT of type
-        mint(_Type+5, 1);
+        _mint(msg.sender, _Type+5, 1, "0x0");
+        minted[_Type+5] = 1;
     }
 
     /// @notice Pause the contract

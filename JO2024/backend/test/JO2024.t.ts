@@ -85,6 +85,12 @@ describe("JO2024", function () {
     });
   });
 
+  describe("Minting id jeton > 4 ko", () => {
+    it("Shouldn't mint unique", async () => {
+      await expect(instanceJO2024.connect(signer1).mint(5, 1)).to.be.revertedWith("Fongible does not exist");
+    });
+  });
+
   describe("Mint max ok", () => {
     it("Should mint max", async () => {
       await instanceJO2024.connect(signer2).mint(4, 10000);
@@ -214,6 +220,7 @@ describe("JO2024", function () {
       await instanceJO2024.burn(1);
       expect(await instanceJO2024.balanceOf(owner.address, 1)).to.be.equal(9000);
       expect(await instanceJO2024.balanceOf(owner.address, 6)).to.be.equal(1);
+      await expect(instanceJO2024.burn(1)).to.be.revertedWith("The unique NFT have been minted");
     });
   });
 
